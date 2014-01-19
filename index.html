@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Editor 0.1</title>
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		
+		<header><h1>Editor 0.1</h1></header>
+		<section id="page-wrapper">
+			<section id="page" class="group">
+				<div id="cards-list">
+					<section id="search"><input type="search" id="search-terms" placeholder="Search"></section>
+					<div id="cards-holder"></div>
+				</div>
+				<div id="card-edit"></div>
+			</section>
+		</section>
+		
+		<script id="cardTemplate" type="text/template">	
+			<form action="index_submit" method="get" accept-charset="utf-8">
+				<input type="text"  value="<%= title %>" name="card[title]" id="title">
+				<input type="text"  value="<%= summary %>" name="card[summary]" id="summary">
+				<textarea  name="card[text]" id="text"><%= text %></textarea>	
+		
+				<p><input type="submit" value="Save"></p>
+			</form>	
+		</script>
+
+		<script id="cardSummaryTemplate" type="text/template">
+			<h3><%= title %></h3>
+			<h4><%= summary %></h4>
+		</script>
+		
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+		<script src="js/application.js"></script>
+	</body>
+</html>
