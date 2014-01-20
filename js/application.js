@@ -56,6 +56,13 @@
 	var CardEditView = Backbone.View.extend({
 		el: $("#card-edit"),
 		
+		events: {
+			"click #save": "save",
+			"click #bold": "bold",
+			"click #italics": "italics",
+			// onload event for iframe?
+		},
+		
 		initialize: function(){
 			this.model = new Card(currentCard);
 			this.render();
@@ -64,6 +71,22 @@
 		render: function(){
 			var cardEditView = new CardView({ model: this.model });
 			this.$el.append(cardEditView.render().el);
+			$("#cardRichText").contents().prop('designMode', 'on');
+		},
+		
+		save: function(event) {
+			event.preventDefault();
+			console.log("SAVING");
+			var content = window.cardRichText.document.getElementsByTagName("body")[0].innerHTML;
+			$("#text").html(content);
+		}, 
+		
+		bold: function() {
+			cardRichText.document.execCommand('bold', false, null);
+		},
+		
+		italics: function() {
+			cardRichText.document.execCommand('italic', false, null);
 		}
 
 	});

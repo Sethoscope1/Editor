@@ -61,11 +61,16 @@ input[type=text], textarea, input[type=search] {
 	width: 240px;
 }
 
-textarea, #text {
+#text {
+	display: none;
+}
+/*textarea, #text {
 	min-height: 500px;
 	font-size: 14px;
 	padding-top: 20px;
 }
+*/
+
 
 
 h4, #summary {

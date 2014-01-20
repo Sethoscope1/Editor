@@ -22,13 +22,17 @@
 		
 		<script id="cardTemplate" type="text/template">	
 			<form action="index_submit" method="get" accept-charset="utf-8">
+				<input type="button" value="i" id="italics">
+				<input type="button" value="b" id="bold">
+
 				<input type="text"  value="<%= title %>" name="card[title]" id="title">
 				<input type="text"  value="<%= summary %>" name="card[summary]" id="summary">
 				<textarea  name="card[text]" id="text"><%= text %></textarea>	
-		
-				<p><input type="submit" value="Save"></p>
+				<iframe name="cardRichText" id="cardRichText" style="width: 700px; height: 300px; border: none; background-color: white" ></iframe>
+				<p><input type="submit" value="Save" id="save"></p>
 			</form>	
 		</script>
+		
 
 		<script id="cardSummaryTemplate" type="text/template">
 			<h3><%= title %></h3>
