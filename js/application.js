@@ -60,7 +60,6 @@
 			"click #save": "save",
 			"click #bold": "bold",
 			"click #italics": "italics",
-			// onload event for iframe?
 		},
 		
 		initialize: function(){
@@ -72,6 +71,8 @@
 			var cardEditView = new CardView({ model: this.model });
 			this.$el.append(cardEditView.render().el);
 			$("#cardRichText").contents().prop('designMode', 'on');
+			var content = $("#text").text();
+			window.cardRichText.document.getElementsByTagName("body")[0].innerHTML = content;
 		},
 		
 		save: function(event) {
@@ -79,6 +80,11 @@
 			console.log("SAVING");
 			var content = window.cardRichText.document.getElementsByTagName("body")[0].innerHTML;
 			$("#text").html(content);
+			console.log(content);
+			// WRITE AJAX REQUEST ONCE RAILS SIDE UP
+			
+			currentCard["text"] = content;
+			console.log(currentCard["text"]);
 		}, 
 		
 		bold: function() {
