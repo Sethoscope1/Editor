@@ -1,10 +1,16 @@
 /* green - #23D97E*/
 
+@font-face {
+	font-family: "OstrichSans";
+	src: url("OstrichSans-Bold.otf");
+	font-weight: bold;
+}
+
 h1, h2, h3, h4, h5, h6, p, ul, li, section, header, div, span, header, footer, body, textarea, input[type=text] {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-family: sans-serif;
+	font-family: "Helvetica Neue", Arial, sans-serif;
 	font-size: 100%;
 	font-weight: normal;
 	vertical-align: baseline;
@@ -24,7 +30,7 @@ body {
 	background: -webkit-linear-gradient(#23D97E, white); 
 	background: -o-linear-gradient(#23D97E, white); 
 	background: -moz-linear-gradient(#23D97E, white); 
-	background: linear-gradient(#23D97E, white); 
+	background: linear-gradient(#4ED797, white); 
 	height: 100%;
 	background-repeat: no-repeat;
 }
@@ -35,22 +41,28 @@ header {
 
 h1 {
 	color: white;
-	font-size: 32px;
+	font-size: 64px;
+/*	font-variant: small-caps;*/
 	font-weight: bold;
 	display: block;
 	padding: 20px 10px;
+	font-family: "OstrichSans";
 }
 
-h3, h4, #summary, #title, #text, p {
+h3, h4, #summary, #title, #text, p, #card-edit nav {
 	display: block;
-	padding: 5px 10px;
-	font-size: 20px;
+	padding: 12px 10px;
 	border-bottom: 1px solid #23D97E;
+}
+
+#title {
+	font-weight: bold;
+	font-size: 24px;
 }
 
 input[type=text], textarea, input[type=search] {
 	padding: 5px 10px;
-	width: 690px;
+	width: 670px;
 	height: 100%;
 	max-width: 690px;
 	background: none;
@@ -64,17 +76,14 @@ input[type=text], textarea, input[type=search] {
 #text {
 	display: none;
 }
-/*textarea, #text {
-	min-height: 500px;
-	font-size: 14px;
-	padding-top: 20px;
+
+h3 {
+	font-size: 18px;
 }
-*/
-
-
 
 h4, #summary {
 	font-size: 14px;
+	font-variant: small-caps;
 	color: gray;
 }
 
@@ -97,9 +106,17 @@ header {
 	float: left;
 }
 
-.card-summary, #card-edit, #search  {
+.card-summary, #card-edit, #search-terms  {
 	background-color: white;
 	margin: 10px 0;
+}
+
+.card-summary h3 {
+	cursor: pointer;
+}
+
+.card-summary {
+	width: 240px;
 }
 
 #card-edit {
@@ -108,7 +125,52 @@ header {
 	height: 100%;
 }
 
+#card-edit input, #card-edit nav {
+	padding-left: 20px;
+	padding-right: 20px;
+/*	padding: 12px;*/
+}
+
 .card {
 	height: 100%;
 }
 
+li {
+	list-style: none;
+}
+
+@media screen and (max-width: 800px) {
+	#page {
+		width: 100%;
+	}
+	#cards-list {
+		float: none;
+		width: 100%;
+		height: 170px;
+		overflow: hidden;
+	}
+	
+	#cards-holder {
+		overflow: scoll;
+
+/*		width: 100%;*/
+	}
+	
+	.card-summary {
+		float: left;
+		margin: 10px 10px;
+	}
+	
+	#card-edit {
+		float: none;
+		margin: auto;
+	}
+	
+	#search-terms {
+		width: 60%;
+	}
+	
+	#search {
+		text-align: center;
+	}
+}

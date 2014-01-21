@@ -41,15 +41,26 @@
 	});
 	
 	var CardSummaryView = Backbone.View.extend({
-		tagname: "section",
+		tagName: "li",
 		className: "card-summary",
 		template: $("#cardSummaryTemplate").html(),
 		
+		events: {
+			"click h3": "updateText"
+		},
+		
 		render: function(){
 			var templ = _.template(this.template);
-			
 			this.$el.html(templ(this.model.toJSON()));
 			return this;
+		},
+		
+		updateText: function(){
+			console.log("UPDATING TEXT");
+			console.log(editView.model);
+			editView.model = this.model;
+			console.log(editView.model);
+			editView.render();
 		}
 	})
 	
@@ -60,21 +71,26 @@
 			"click #save": "save",
 			"click #bold": "bold",
 			"click #italics": "italics",
+			"change #font-size": "fontSize",
+			"change #font-style": "fontStyle"
 		},
 		
 		initialize: function(){
 			this.model = new Card(currentCard);
+			this.model.on('change', this.render, this);
 			this.render();
 		},
 		
 		render: function(){
+			this.$el.empty();
 			var cardEditView = new CardView({ model: this.model });
 			this.$el.append(cardEditView.render().el);
 			$("#cardRichText").contents().prop('designMode', 'on');
 			var content = $("#text").text();
+			window.cardRichText.document.body.style.fontFamily = "Adobe Garamond Pro, Georgia, serif";
+			window.cardRichText.document.body.style.lineHeight = 1.5;
 			window.cardRichText.document.getElementsByTagName("body")[0].innerHTML = content;
 		},
-		
 		save: function(event) {
 			event.preventDefault();
 			console.log("SAVING");
@@ -93,12 +109,25 @@
 		
 		italics: function() {
 			cardRichText.document.execCommand('italic', false, null);
-		}
+		}, 
+		
+		fontSize: function() {
+			var size = $("#font-size").val();
+			cardRichText.document.execCommand('fontSize', false, size);
+		},
+		
+		fontStyle: function() {
+			var style = $("#font-style").val();
+			cardRichText.document.execCommand('fontName', false, style);
+			window.cardRichText.document.body.style.fontFamily = style;
+			console.log(window.cardRichText.document.body.style.fontFamily);
+		},
 
 	});
 	
 	var CardsView = Backbone.View.extend({
-		el: $("#cards-list"),
+		// el: $("#cards-list"),
+		tagName: "ul",
 		
 		initialize: function(){
 			this.collection = new Cards(cards);
@@ -108,7 +137,7 @@
 		},
 		
 		events: {
-			"change #search-terms": "search"
+			"change #search-terms": "search",
 		},
 		
 		render: function(){
@@ -128,7 +157,7 @@
 		
 		searchText: function(){
 			var words = this.collection.pluck("text").join();
-			return _.uniq(words.split(/[ ,.?]+/), false, function(word){
+			return _.uniq(words.split(/[ -;:,.?]+/), false, function(word){
 				return word.toLowerCase();
 			});
 		},
@@ -145,7 +174,7 @@
 				this.collection.reset(cards, { silent: true });
 				var searchTerm = this.searchTerm;
 				var filtered = _.filter(this.collection.models, function(item){
-					var words = item.get("text").split(/[ ,.?]+/);
+					var words = item.get("text").split(/[ -:;,.?]+/);
 					return _.contains(words, searchTerm);
 				});				
 				this.collection.reset(filtered);
