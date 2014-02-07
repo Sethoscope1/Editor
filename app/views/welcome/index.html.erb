@@ -1,0 +1,23 @@
+<script type="application/json" id="bootstrapped_cards_json">
+	<%= Card.all.to_json.html_safe %>
+</script>
+
+<script type="application/javascript">
+	$(function() {
+		var cards = JSON.parse($("#bootstrapped_cards_json").html());
+		window.ED.initialize($("body"), cards);
+		console.log("BACKBONING")
+	});
+</script>
+
+<header><h1>Editor 0.1</h1></header>
+<section id="page-wrapper">
+	<section id="page" class="group">
+		<div id="cards-list" class="group">
+			<section id="search"><input type="search" id="search-terms" placeholder="Search"></section>
+			<div id="cards-holder" class="group">
+			</div>
+		</div>
+		<div id="card-edit"></div>
+	</section>
+</section>
